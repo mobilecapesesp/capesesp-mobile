@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/dataService.js"></script>
+    <script type="text/javascript" src="js/loginService.js"></script>
+    <script type="text/javascript" src="js/dao.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/webview.js"></script>
+
+    <title>Menu CAPESESP</title>
+
+</head>
+<style type="text/css">
+    .header-mudado {
+        background-color: transparent !important;
+    }
+</style>
+<body>
+<div data-role="page" class="menu-img" id="pageone" data-theme="a" data-scroll="false" data-content-theme="b" style="height: 100%;">
+
+    <div data-role="header" class="banner-capesesp">
+        <span class="ui-title"></span>
+        <a id="header-info" class="ui-btn-right anchor-capesesp">
+            <span class="ui-icon-info ui-btn-icon-right ui-custom-capesesp">&nbsp;</span></a>
+    </div>
+
+    <div data-role="main" class="ui-content ui-responsive">
+        <a id="box-link1" href="#" data-webview-tittle=""
+           data-webview-url="credenciado/senhas/associado.php" data-webview-requires-login data-webview-titular
+           data-webview-orientation="landscape"></a>
+        <a id="box-link2" href="#" data-webview-tittle="" data-webview-url="utilizacao/grupo.php" data-webview-titular
+           data-webview-requires-login data-webview-orientation="landscape"></a>
+        <a id="box-link5" href="#" data-webview-tittle="" data-webview-url="beneficio/menubenef.php" data-webview-titular
+           data-webview-requires-login data-webview-orientation="landscape"></a>
+        <a id="box-link6" href="#" data-webview-tittle=""
+           data-webview-url="aplicacoes/demonstrativos/demonstrativo_contribuicoes.php" data-webview-requires-login data-webview-titular
+           data-webview-orientation="portrait"></a>
+        <a id="box-link3" href="#" onclick=" $.mobile.loading('show');window.location.href = 'rede_credenciada.html#pageone'"></a>
+        <a id="box-link4" href="#" onclick="mainCtrl.auth.validarToken('carteira_virtual.html');"></a>
+    </div>
+
+    <div class="footer" data-role="footer">
+        <img src="img/logo_.png" class="logo-footer"/>
+        <p style="color:black;font-size:small;text-align: center">
+            <a href="#" onclick="window.open('http://www.capesesp.com.br/','_system', 'location=yes');"
+               style="text-decoration:none; color: #009933; line-height: 27px;">
+                Ir para o site da CAPESESP
+            </a>
+        </p>
+    </div>
+</div>
+
+<div data-role="page" id="loginsistema" data-theme="a" data-content-theme="b">
+
+    <div data-role="header" class="banner-capesesp">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Acesso do associado</span>
+    </div>
+
+    <div class="ui-grid-solo" style=" display:block; margin: 20px 10%;">
+        <div>
+            <form name="input" method="post">
+                <label for="login">Matrícula com sequencial:</label><input data-clear-btn="true" type="text" name="login"
+                                                            id="login" value="" placeholder=""><br>
+                <label for="senha">Senha:</label><input data-clear-btn="true" type="password" name="senha"
+                                                        id="senha" value=""><br>
+                <input type="button" value="Entrar" onClick="mainCtrl.logar()">
+            </form>
+        </div>
+    </div>
+    <div class="footer" data-role="footer">
+        <img src="img/logo_.png" class="logo-footer"/>
+        <p style="color:black;font-size:small;text-align: center">
+            <a href="#" onclick="window.open('http://www.capesesp.com.br/','_system', 'location=yes');"
+               style="text-decoration:none; color: #009933; line-height: 27px;">
+                Ir para o site da CAPESESP
+            </a>
+        </p>
+    </div>
+
+</div>
+
+
+<div data-role="page" id="moreinfo" data-theme="a" data-content-theme="b">
+
+    <div data-role="header" class="banner-capesesp">
+        <a class="ui-btn-left anchor-capesesp" onclick="window.location.href='index.html'">
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Mais informações</span>
+                <a class="ui-btn-right anchor-capesesp header-logout" onclick="mainCtrl.logout()">
+            <span class="ui-icon-delete ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+
+    <div class="ui-grid-solo" id="opcoes1" style="margin-top: 20px;">
+        <ul data-role="listview" data-inset="true" class="ui-alt-icon">
+            <li><a href="#" onclick="mainCtrl.CarregarInformacoes('central_relacionamento.html')">Central de
+                Relacionamento<br/>Senhas e Atendimentos</a></li>
+            <li><a href="#" onclick="mainCtrl.CarregarInformacoes('capesaude_urgente.html')">Capesaúde Urgente</a>
+            </li>
+            <li>
+                <a href="#" data-webview-tittle="" data-webview-back data-webview-orientation="portrait"
+                   data-webview-url="escritorios_regionais/index.php?from=mobile">Escritórios Regionais</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer" data-role="footer">
+        <img src="img/logo_.png" class="logo-footer"/>
+        <p style="color:black;font-size:small;text-align: center">
+            <a href="#" onclick="window.open('http://www.capesesp.com.br/','_system', 'location=yes');"
+               style="text-decoration:none; color: #009933; line-height: 27px;">
+                Ir para o site da CAPESESP
+            </a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

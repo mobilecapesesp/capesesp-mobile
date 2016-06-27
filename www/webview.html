@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/dataService.js"></script>
+    <script type="text/javascript" src="js/loginService.js"></script>
+    <script type="text/javascript" src="js/dao.js"></script>
+    <script type="text/javascript" src="js/webview.js"></script>
+
+    <style type="text/css">
+        iframe {
+            border: none !important;
+            max-height: 100% !important;
+        }
+    </style>
+    <script>
+        // Setar a orientação deve ser adiada para o documento Ready para que o plugin carregue
+        document.addEventListener("deviceready", webviewOnDeviceReady, false);
+
+        $(document).ready(function () {
+            initializeWebview();
+        });
+
+    </script>
+</head>
+<body>
+<div data-role="page" id="webview" data-theme="a" data-content-theme="b" data-scroll="false">
+    <div data-role="header" class="banner-capesesp header-branco" data-position="fixed">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location ="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title"></span>
+        <a data-transition="pop" class="ui-btn-right anchor-capesesp back-webview" data-rel="back" style="display:none">
+            <span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+    <div id="webviewContainer" class="ui-grid-solo" data-overlay-theme="a" data-theme="a" data-content-theme="b"
+         data-corners="false"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,818 @@
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('Ubuntu-L.ttf');
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+.home-icone, .back-icone, .info-icone {
+    margin: 8px 5px 0px 8px !important;
+    vertical-align: top;
+    border-color: transparent !important;
+    background-color: #0d7678 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.map-icone {
+    background-image: url("../img/geo_arrow.png");
+    background-size: 24px 24px;
+    background-position: 2px;
+    background-repeat: no-repeat;
+}
+
+.back-icone {
+    top: 6px !important;
+}
+
+#box-link1 {
+    position: absolute;
+    top: 22%;
+    left: 15%;
+    width: 20%;
+    height: 15%;
+    background-color: transparent;
+
+}
+
+#box-link2 {
+    position: absolute;
+    top: 38%;
+    left: 14%;
+    width: 21%;
+    height: 15%;
+    background-color: transparent;
+
+}
+
+#box-link3 {
+    position: absolute;
+    top: 29.5%;
+    left: 39%;
+    width: 21%;
+    height: 15%;
+    background-color: transparent;
+
+}
+
+#box-link4 {
+    position: absolute;
+    top: 45.5%;
+    left: 39%;
+    width: 21%;
+    height: 15%;
+    background-color: transparent;
+
+}
+
+#box-link5 {
+    position: absolute;
+    top: 21.5%;
+    left: 63%;
+    width: 21%;
+    height: 15%;
+    background-color: transparent;
+}
+
+#box-link6 {
+    position: absolute;
+    top: 37.5%;
+    left: 63%;
+    width: 21%;
+    height: 15%;
+    background-color: transparent;
+
+}
+
+.tab-first {
+    border-left: none !important;
+}
+
+.tab-last {
+    border-right: none !important;
+}
+
+.pop-up-tamanho {
+    max-width: 400px;
+    min-width: 300px;
+}
+
+.pop-up-header {
+    background-color: rgba(13, 118, 120, 1) !important;
+}
+
+.pop-up-botao1, .pop-up-botao-okinput {
+    position: relative !important;
+    margin-top: 8px !important;
+    margin-left: 38% !important;
+    left: 0 !important;
+    margin: 0;
+    width: 10%;
+    padding: 10px;
+    font-size: 15px;
+
+}
+
+.pop-up-botao2 {
+    background-color: rgb(173, 173, 173) !important;
+    margin-top: 8px !important;
+    margin-left: 8px !important;
+
+}
+
+.header-mudado {
+    background-color: white !important;
+    border-color: transparent !important;
+    height: 70px;
+    border-bottom: 0;
+    border-top: 0;
+}
+
+.header-mudado h1 {
+    color: black;
+    padding-top: 27px !important;
+    margin: 0 20% !important;
+}
+
+.menu-img {
+    background: url("../img/menu2.png") no-repeat;
+    background-size: 100% 100%;
+    max-height: 100%;
+}
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    margin-left: 0;
+    display: block;
+    margin-right: 0;
+    background-color: transparent !important;
+    border: 0;
+    position: absolute;
+}
+
+.messagePopup {
+    background-color: rgb(255, 255, 255);
+
+}
+
+.messagePopup .ui-btn {
+    rgb(0, 111, 116) !important
+}
+
+.messagePopup .ui-title {
+    color: white;
+    text-shadow: none;
+}
+
+.messagePopup .ui-content h3 {
+    color: black;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.messagePopup .ui-content a {
+    background-color: rgba(13, 118, 120, 1) !important;
+    left: 25px;
+}
+
+.prosseguirServico {
+    display: none;
+    width: 288px;
+    margin-left: -35px !important;
+}
+
+.prosseguirServico a {
+    background: #ed743f !important;
+    float: right;
+    width: 80px;
+    left: 37px;
+}
+
+.tab-buttons_click {
+    background: #65afb0 !important;
+}
+
+.title-red-cred {
+    padding: 1em;
+}
+
+.listadiv {
+    font-weight: normal !important;
+    background: #e3e3e3 !important;
+    margin: 0 0 3px 0 !important;
+    color: #333;
+}
+
+.lista li a {
+    font-weight: normal !important;
+    background: #e3e3e3 !important;
+    margin: 0 0 3px 0 !important;
+    color: #333;
+}
+
+.my-position li a {
+    font-weight: normal !important;
+    background: #ed743f !important;
+}
+
+.text-ubuntu {
+    font-size: 1.2em;
+    line-height: 1.3;
+    font-family: 'Ubuntu', sans-serif /*{global-font-family}*/;
+    color: #71716e;
+    font-weight: bold;
+    text-shadow: none !important;
+}
+
+.text-ubuntu2 {
+    font-size: 1em;
+    line-height: 1.3;
+    font-family: 'Ubuntu', sans-serif /*{global-font-family}*/;
+    color: #fff;
+    font-weight: normal;
+    text-shadow: none !important;
+    text-align: left;
+    padding-right: 10%;
+}
+
+.text-posicao {
+    font-size: 1em;
+    line-height: 1.3;
+    font-family: 'Ubuntu', sans-serif /*{global-font-family}*/;
+    color: #fff;
+    font-weight: normal;
+    text-shadow: none !important;
+
+}
+
+p2 {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: -1.2em;
+    -webkit-margin-start: 10%;
+    -webkit-margin-end: 0px;
+    position: relative;
+}
+
+.espaco {
+    padding-left: 10%;
+    margin-right: 10%;
+}
+
+.imgA {
+    display: inline-block;
+    vertical-align: middle;
+    max-height: 100%;
+    max-width: 100%;
+    background-image: url("../img/footer.png");
+    background-size: cover;
+}
+
+.espaco-entre {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.footer2 {
+    width: 100%;
+    margin-left: -16px;
+    display: block;
+    margin-bottom: -39px;
+    height: 73px;
+    position: fixed;
+    border: none;
+    bottom: 38px;
+    background-color: white !important;
+}
+
+.footer3 {
+    background-color: white;
+    position: fixed;
+    border-style: solid;
+    border-color: white /*{a-bar-border}*/;
+    border-width: 6px 0;
+    bottom: 2em;
+    width: 100%;
+    margin-left: 0;
+    display: block;
+    margin-bottom: -42px;
+    margin-right: 0;
+}
+
+.aguardando {
+    background-color: white;
+    filter: alpha(opacity=70); /* IE */
+    opacity: 0.7; /* Safari, Opera */
+    -moz-opacity: 0.70; /* FireFox */
+    z-index: 9000000;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.ui-tabs {
+    position: relative; /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    /*	padding: .2em;*/
+}
+
+.botao-home:after {
+    background-image: url(../img/home.png);
+    width: 20%;
+    height: 20%;
+
+}
+
+#capesesp-icon {
+    opacity: 0.7;
+    margin: 28px 25%;
+    width: 50%;
+    background-size: contain;
+    background-image: url('../img/logo_.png');
+    height: 150px;
+    overflow: visible;
+    background-repeat: no-repeat;
+}
+
+.rede_endereco {
+    width: 16em;
+    margin-right: 10%;
+    height: 37px;
+}
+
+.ui-collapsible-heading-toggle {
+    background-color: #EEE !important;
+    text-transform: lowercase;
+}
+
+#pageone {
+    height: 100% !important;
+    max-height: 100%;
+}
+
+
+#two {
+    top: 7px;
+    position: relative;
+}
+
+#two .ui-field-contain .ui-select {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#two p2 {
+    top: -22px;
+    margin-top: 29px;
+}
+
+.rede-estado {
+    margin-top: 21px;
+}
+
+.rede-bairro {
+    position: relative;
+    top: -8px;
+}
+
+.prosseguirServico {
+    margin-top: 0px;
+    position: relative;
+    top: -10px;
+    padding-bottom: 100px;
+}
+
+#rodapeLista {
+    margin-left: 0px !important;
+    height: 70px;
+    padding-top: 11px;
+    margin-bottom: -30px !important;
+}
+
+.banner-capesesp {
+    border: none;
+    background-color: transparent !important;
+    margin-bottom: 2%;
+    padding-top: 3%;
+    padding-bottom: 2%;
+}
+
+.banner-capesesp a {
+    margin-top: 4% !important;
+}
+
+.banner-capesesp .ui-title {
+    width: 84%;
+    left: -22%;
+    position: relative;
+}
+
+.ui-custom-capesesp:after {
+    width: 42px;
+    height: 42px;
+    background-size: 72% !important;
+    background-color: rgba(13, 90, 92, 1) !important;
+    top: 25%;
+}
+
+.anchor-capesesp {
+    border: none;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    height: 42px;
+    padding-left: 5px;
+    margin-left: 0;
+    width: 12%;
+    padding-bottom: 0;
+}
+
+.carteirinha {
+    color: #a9a9a9 !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    font-weight: bold;
+}
+
+.carteirinhaFundo {
+    background: url('../img/fundo_carteirinha_comlogo.png') no-repeat !important;
+    background-size: 100% !important;
+    min-height:23em !important;
+    position: fixed !important;
+}
+
+.ui-bar-carteira {
+    background: transparent;
+    border-color: transparent;
+    font-size: 15px !important;
+}
+
+.ui-page {
+    background-color: white;
+}
+
+.header-carteirinha {
+    display: block;
+    background-color: white !important;
+    padding-bottom: 15px;
+}
+
+.logo-footer {
+    left: 37%;
+    position: relative;
+    width: 27%;
+    top: 15px;
+}
+
+.tab-capesesp {
+    background-color: white !important;
+    color: black !important;
+    font-size: 15px;
+    padding: 6px;
+    font-weight: bold !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+.tab-not-selected {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.tab-selected {
+    border: 1px solid rgba(189, 183, 183, 0.41);
+    margin-bottom: -1px;
+    border-bottom: 1px solid white;
+    border-radius: 3px;
+}
+
+#planosList li {
+    border: 1px solid rgba(197, 196, 196, 0.3);
+}
+
+.li-tab:hover {
+    color: black !important;
+    background-color: rgba(128, 128, 128, 0.14) !important;
+}
+
+.li-tab {
+    font-weight: normal !important;
+    margin: 0 0 3px 0 !important;
+    color: #333;
+    background-color: white !important;
+}
+
+.header-redes {
+    background-color: white !important;
+    padding-bottom: 2%;
+}
+
+.header-branco {
+    background-color: white !important;
+}
+
+.navbar-redes {
+    background-color: white !important;
+    border-bottom: 1px solid rgba(189, 183, 183, 0.41);
+}
+
+.planos-redes {
+    height: 71%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+#planosList{
+    margin-bottom: 2em;
+}
+
+.ui-content {
+    margin-top: 5px !Important;
+}
+
+.ui-header-fixed.ui-fixed-hidden {
+    padding-top: 3% !important;
+    top: -1px !important;
+}
+
+.regiao-redes {
+    margin-top: -25px;
+}
+
+.pageone-redes {
+    padding-bottom: 0 !important;
+}
+
+.text-posicao {
+    padding: 5px;
+    padding-left: 10px !important;
+    margin-left: 70px !important;
+    width: 11em;
+    background: #ed743f !important;
+    text-decoration: none !important;
+}
+
+.img-posicao {
+    display: inline-block;
+    margin-left: 43px;
+    width: 26px;
+}
+
+.icon-star-cap {
+    width: 42px;
+    height: 42px;
+    background-size: 120% !important;
+    background-color: rgba(206, 255, 10, 1) !important;
+    top: 25%;
+}
+
+.ui-collapsible-heading-toggle {
+    background-color: white !important;
+    border: 1px solid rgba(150, 150, 150, 0.31) !important;
+    position: relative;
+    text-shadow: none !important;
+    color: black !important;
+}
+
+.ui-collapsible-heading-toggle:hover {
+    background-color: rgba(150, 150, 150, 0.31) !important;
+    color: black !important;
+}
+
+.ui-collapsible-heading .ui-btn-icon-left:after {
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    background-color: rgb(10, 51, 22);
+}
+
+#listaClinicas {    
+    position: fixed;
+    padding: 1em;
+    height: 75%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch !important;
+    min-width: 91%;
+}
+
+.ui-collapsible-content {
+    color: black !important;
+    background-color: rgba(223, 223, 223, 0.23) !important;
+}
+
+.nome-clinica {
+    color: #0d7678;
+    font-size: medium;
+    font-weight: bold;
+    border-bottom: 2px solid orange;
+    text-align: left;
+    padding-left: 27px;
+}
+
+.img-clin {
+    position: relative;
+    width: 22px;
+    top: 1.8em;
+}
+
+#detalheClinica{
+    height: 34em;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch !important;
+    margin-top: -15px;
+}
+
+#detalheClinica table tbody tr {
+    height: 35px;
+}
+
+.lista-pai {
+    border: 1px solid rgb(223, 223, 223);
+}
+
+.lista-pai h3 {
+    background-color: rgba(221, 221, 221, 0.65);
+    padding: 5px;
+    margin-bottom: 0;
+    margin-top: 0;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    font-size: 14px;
+}
+
+.lista-descricao {
+    background-color: rgb(241, 241, 241);
+    padding: 8px;
+    font-size: 14px;
+}
+
+.numberonly {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.header-abs {
+    position: absolute;
+    top: 0;
+}
+
+.favoritos-star {
+    height: 73px;
+    width: 80px;
+    position: relative;
+    top: -12px;
+}
+
+.favoritos-text {
+    position: relative;
+    top: -27px;
+    color: black;
+    left: 8px;
+}
+
+.buscar-text {position: relative;
+    color: black;
+    left: 0px;
+    top: -7px;
+}
+
+.buscar-img {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.detalhes-favotiarimg {
+    height: 77px;
+    width: 80px;
+    position: relative;
+    top: -18px;
+}
+
+.detalhes-favoritar {
+    position: relative;
+    color: black;
+    left: 0;
+    top: -30px;
+}
+
+.detalhes-phone {
+    top: -19px;
+    position: relative;
+    color: black;
+    left: 0;
+    display: block;
+}
+
+.detalhes-phoneimg {
+    height: 55px;
+    width: 65px;
+    top: -16px;
+    position: relative;
+}
+
+.detalhes-rotaimg{
+    height: 46px;
+    width: 49px;
+    top: -11px;
+    position: relative;
+}
+
+.detalhes-rota{
+    top: -14px;
+    position: relative;
+    color: black;
+    left: 0;
+    display: block;
+}
+
+.pop-up-cancelar, .pop-up-ok, .pop-up-botao1, .pop-up-botao-okinput{
+    color:white !important;
+    text-shadow: none !important;
+}
+
+.pop-up-cancelar{
+    float: right;
+    margin-right: 25%;
+}
+
+#botaoBusca{
+    width: 100%;
+    top: -8px;
+    display: block;
+    position: relative;
+}
+
+.input-no-padding{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#bairroFiltro .ui-input-text .ui-input-clear{
+    background-color: rgba(22, 22, 22, 0.21);
+}
+
+#title-operadora h1{
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+#planostList .ui-btn{
+    font-size: 13px;
+}
+
+body{
+    background-color: white !important;
+}
+#credenciadosList{
+    height:100%;
+}
+
+#planosList a {
+    white-space: normal;
+    font-size: 15px;
+}
+
+#webview{
+    padding-top: 0 !important;
+    height:100%;
+}
+
+#lista-wrapper{
+    margin-bottom: 2em;
+}
+
+#webviewContainer{
+    padding: 0;
+    margin-top: 14%;
+    height:75%;
+    z-index:99999;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+.ui-loader
+{
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    top: 0;
+    margin: 0;
+    background-color: transparent;    
+    left: 0;
+}
+
+.ui-icon-loading{
+    top: 50%;
+    position: fixed;
+    left: 45%;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no" charset="utf-8"/>
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link href='css/Ubuntu-L.ttf' rel='stylesheet' type='text/css'/>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/dataService.js"></script>
+    <script type="text/javascript" src="js/loginService.js"></script>
+    <script type="text/javascript" src="js/carteiraVirtual.js"></script>
+    <script type="text/javascript" src="js/dao.js"></script>
+</head>
+<body>
+<div data-role="page" id="pageone" data-theme="a" data-content-theme="b">
+
+    <div data-role="header" class="banner-capesesp">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Carteirinha Virtual</span>
+
+    </div>
+
+    <div id="menu_carteira_lista">
+
+    </div>
+    <div id="menu_carteira_det" style="display: none">
+        <div>
+
+        </div>
+    </div>
+
+    <div data-role="main" class="ui-content ui-responsive ">
+        <div class="ui-grid-solo" id="carteira_virtual">
+            <label style="color:black;font-size:small;text-align: left; font-weight: bold " for="carteira_lista_ul"
+                   id="label_cart_list_ul"></label>
+            <ul data-role="listview" data-inset="true" class="ui-alt-icon" id="carteira_lista_ul">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="pagetwo" data-theme="a" data-content-theme="b" class="carteirinhaFundo">
+
+    <div data-role="header" data-transition="pop" class="banner-capesesp header-carteirinha">
+        <a class="ui-btn-left anchor-capesesp" onclick="carteiraCtrl.backCarteira()">
+            <span class="ui-icon-back ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Carteirinha Virtual</span>
+    </div>
+
+    <div class="ui-grid-b carteira_lista_detalhe">
+        <div class="ui-block-b" style="width: 100%;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;" id="nome_usuario">ALDENOR RODRIGUES DE SOUZA</div>
+            <label class="carteirinha" for="nome_usuario">Nome</label>
+        </div>
+        <div class="ui-block-a" style="position: relative;top: -25px;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
+                 id="mat_usuario"></div>
+            <label class="carteirinha" for="mat_usuario">Matrícula</label>
+        </div>
+        <div class="ui-block-c" style="left: 35%;position: relative;top: -25px;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
+                 id="uf_usuario"></div>
+            <label class="carteirinha" for="uf_usuario">UF</label>
+        </div>
+        <div class="ui-block-b" style="width: 100%;position: relative;top: -40px;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
+                 id="plano_usuario"><br/>
+            </div>
+            <label class="carteirinha" for="plano_usuario">Plano</label>
+        </div>
+        <div class="ui-block-a" style="top: -55px;position: relative;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
+                 id="nasc_usuario"></div>
+            <label class="carteirinha" for="nasc_usuario">Dat. Nasc.</label>
+        </div>
+        <div class="ui-block-c" style="position: relative;top: -55px;left: 35%;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
+                 id="acomadacao_usuario"></div>
+            <label class="carteirinha" for="acomadacao_usuario">Acomadação</label>
+        </div>
+        <div class="ui-grid-solo" style="display: inline;position: relative;top: -58px;">
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;text-align:center;"
+                 id="observacoes"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

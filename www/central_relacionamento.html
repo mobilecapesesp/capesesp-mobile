@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no" charset="utf-8"/>
+
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/dataService.js"></script>
+	<script type="text/javascript" src="js/loginService.js"></script>
+	<script type="text/javascript" src="js/centralRelacionamento.js"></script>
+	<script type="text/javascript" src="js/dao.js"></script>
+
+
+	<title>Central de Relacionamento</title>
+</head>
+<body>
+<div data-role="page" id="pageone" data-theme="a">
+	<div data-role="header" class="banner-capesesp header-branco" data-position="fixed">
+		<a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
+			<span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+		</a>
+		<span class="ui-title"></span>
+		<a data-transition="pop" class="ui-btn-right anchor-capesesp" data-rel="back">
+			<span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+		</a>
+	</div>
+	<div data-role="main" class="ui-content ui-responsive">
+		<div class="ui-grid-solo">
+			<div id="cabecalho">
+			</div>
+			<p id="descricao"> </p>
+			<div class="ui-grid-solo">
+				<ul id="central_relacionamento_ul">
+				</ul>
+				<P id="central_rel_capsaude"></P>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

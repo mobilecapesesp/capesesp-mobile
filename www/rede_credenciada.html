@@ -1,0 +1,321 @@
+<meta charset="UTF-8">
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, height=device-height">
+    <meta name="format-detection" content="width=device-width, initial-scale=1, user=scalable=no, telephone=no" charset="utf-8 "/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/red-cred/jquery.mobile.external-png-1.4.4.css"/>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/dao.js"></script>
+    <script type="text/javascript" src="js/dataService.js"></script>
+    <script type="text/javascript" src="js/loginService.js"></script>
+    <script type="text/javascript" src="js/rotasGoogle.js"></script>
+    <script type="text/javascript" src="js/redesCredenciadas.js"></script>
+    
+</head>
+<body>
+<div data-role="page" id="pageone" data-scroll="false" class="pageone-redes" data-theme="a">
+    <div data-role="header" class="banner-capesesp header-redes">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Rede Credenciada</span>
+        <a class="ui-btn-right anchor-capesesp" id="header-back" onclick='redesCtrl.performTabBack()'>
+            <span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+    <div data-role="main" class="ui-content ui-responsive divLista" style="padding-bottom: 20px ">
+        <div class="ui-grid-solo" id="rede_credenciada">
+            <div data-role="tabs" id="tabs">
+                <div data-role="navbar" class="ui-state-persist navbar-redes">
+                    <ul class="tab-buttons">
+                        <li><a href="#one" id="tab0" class="tab-capesesp tab-selected" data-ajax="false"
+                               onclick="redesCtrl.AtivarTab(0,[1,2,3],true)"
+                               data-transition="slide">Plano</a></li>
+                        <li><a href="#two" id="tab1" class="tab-capesesp tab-not-selected" data-ajax="false"
+                               onclick="redesCtrl.AtivarTab(1,[2,3],true)"
+                               data-transition="slide">Região</a></li>
+                        <li><a href="#three" id="tab2" class="tab-capesesp tab-not-selected" data-ajax="false"
+                               onclick="redesCtrl.AtivarTab(2,[3],true)"
+                               data-transition="slide">Serviço</a>
+                        </li>
+                        <li><a href="#four" id="tab3" class="tab-capesesp tab-not-selected" data-ajax="false"
+                               onclick="redesCtrl.AtivarTab(3,[],true)"
+                               data-transition="slide">Nome</a></li>
+                    </ul>
+                </div>
+                <div id="one" class="planos-redes">
+                    <ul data-role="listview" id="planosList" data-inset="true">
+                    </ul>
+
+
+                </div>
+                <div id="two" class="regiao-redes">
+                    <div data-role="fieldcontain" class="espaco ui-field-contain" style="width: 65%;left: 7%;top: 15px;padding-bottom: 5px;">
+                        <div class="ui-select">
+                            <div class="ui-btn ui-icon-navigation ui-btn-icon-right ui-corner-all ui-shadow" style="background-color: #ed743f !important;" onclick="redesCtrl.obterEndereco();">
+                                <span class="text-ubuntu2" style="font-size: 13px;padding-right: 0 !important;text-align: center;">Usar a minha posição</span></div>
+                        </div>
+                    </div>
+                    <p2 class="text-ubuntu" class="rede_estado">Estado:</p2>
+                    <div data-role="fieldcontain" class="espaco input-no-padding">
+                        <select name="estadoList" id="estadoList" onchange="redesCtrl.listarMunicipio(this.value)"
+                                class="text-ubuntu2">
+                        </select>
+                    </div>
+                    <p2 class="text-ubuntu">Município:</p2>
+                    <div data-role="fieldcontain" class="espaco input-no-padding">
+                        <select name="municipioList" id="municipioList"
+                                onchange="redesCtrl.listarTipoServico()" class="text-ubuntu2">
+                        </select>
+                    </div>
+
+                    <p2 class="text-ubuntu">Bairro:</p2>
+                    <div data-role="fieldcontain"  id="bairroFiltro" class="espaco input-no-padding" style="top: -7px;">
+                        <input placeholder="Opcional" type="text" name="bairro" id="bairro" value="" class="espaco">
+                    </div>
+
+                    <div id="prosseguir1"  data-role="fieldcontain" class="espaco ui-field-contain" style="width: 45%;left: 18.5%;top: -15px;height: 50px;">
+                        <div class="ui-select">
+                            <div class="ui-btn ui-icon-arrow-r ui-btn-icon-right ui-corner-all ui-shadow" style="background-color: #ed743f !important;">
+                                <span class="text-ubuntu2" style="font-size: 13px;padding-right: 0 !important;text-align: center;  };">Seguir</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="three">
+                    <div class="espaco-entre">
+                    </div>
+                    <div id="tipoServicoDiv">
+                        <p2 class="text-ubuntu">Tipo de Serviço:</p2>
+                        <div data-role="fieldcontain" class="espaco">
+                            <select name="tiposervicoList" id="tiposervicoList"
+                                    onchange="if($('#tiposervicoList').find('option:selected').val() != '0'){redesCtrl.listarServico(this.value)}" class="text-ubuntu2">
+                                <option value="0">Selecione um item</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="esp-servico">
+                        <p2 id="servicoLabel" class="text-ubuntu">Especialidade:</p2>
+                        <div data-role="fieldcontain" class="espaco">
+                            <select name="servicoList" id="servicoList" class="text-ubuntu2" onchange="redesCtrl.selecionarEspecialidade(this.value)">
+                                <option value="0">Selecione um item</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="prosseguir2"  data-role="fieldcontain" class="espaco ui-field-contain" style="width: 45%;left: 18.5%;top: -15px;height: 50px;">
+                        <div class="ui-select">
+                            <div class="ui-btn ui-icon-arrow-r ui-btn-icon-right ui-corner-all ui-shadow" style="background-color: #ed743f !important;">
+                                <span class="text-ubuntu2" style="font-size: 13px;padding-right: 0 !important;text-align: center;  };">Seguir</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="four">
+                    <div class="espaco-entre">
+                    </div>
+                    <p2 class="text-ubuntu">Nome do prestador:</p2>
+                    <div data-role="fieldcontain" class="espaco">
+                        <input data-clear-btn="true" type="text" placeholder="(Opcional)" name="prestador"
+                               id="prestador" value=""
+                               class="espaco">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer2" data-role="footer" id="rodapeRedeCredenciada">
+            <table style="width:100%">
+                <tr>
+                    <td width="10%" align="center"></td>
+                    <td width="35%" align="left">
+                        <div onclick="redesCtrl.listarFavoritos();" class="ui-link" id='footer-fav'
+                             style=""><img src="img/favoritoy.png" width="80px" height="60px"
+                                           class="favoritos-star">
+                            <span class="favoritos-text">Favoritos</span></div>
+                    </td>
+                    <td width="35%" align="right">
+                        <div id="botaoBusca"><img src="img/busca.png" width="80px"
+                                                  height="60px" class="buscar-img"> <span
+                                class="buscar-text">Buscar</span></div>
+                    </td>
+                    <td width="17%" align="center"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="credeciadosList" data-theme="a">
+    <div data-role="header" class="banner-capesesp header-branco" data-position="fixed">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Rede Credenciada</span>
+        <a data-transition="pop" class="ui-btn-right anchor-capesesp back-webview" data-rel="back">
+            <span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+    <div class="ui-grid-solo" id="listaClinicas" data-role="collapsible-set">
+    <div id="lista-wrapper"></div>
+    </div>
+    <div class="footer2" data-role="footer" id="rodapeRedeCredenciada" style="margin-left: 3px;">
+        <table style="width:100%">
+            <tr>
+                <td width="10%" align="center"></td>
+                <td width="35%" align="left">
+                    <div onclick="redesCtrl.listarFavoritos();" class="ui-link"
+                         style=""><img src="img/favoritoy.png" width="80px" height="60px"
+                                       class="favoritos-star">
+                        <span class="favoritos-text">Favoritos</span></div>
+                </td>
+                <td width="35%" align="right">
+                    <div onclick="redesCtrl.obterMapaRedeCredenciada();"id="mapaLista"><img
+                            src="img/navig.png" width="55px" height="50px" class="detalhes-rotaimg"><span
+                            class="detalhes-rota" style="left: -7px!important">Mapa</span></div>
+                </td>
+                <td width="17%" align="center"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div data-role="page" id="favList" data-theme="a">
+    <div data-role="header" class="banner-capesesp" data-position="fixed">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Rede Credenciada</span>
+        <a data-transition="pop" class="ui-btn-right anchor-capesesp back-webview" data-rel="back">
+            <span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+    <div class="ui-grid-solo" id="listaFav" data-role="collapsible-set">
+    </div>
+</div>
+
+<div data-role="page" id="exibeCredenciados" data-theme="a" style="padding-bottom: 20px ">
+    <div data-role="header" class="banner-capesesp header-branco" data-position="fixed">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location ="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Rede Credenciada</span>
+        <a data-transition="pop" class="ui-btn-right anchor-capesesp back-webview"
+           data-rel="back">
+            <span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+    <div class="ui-grid-solo" id="detalheClinica"
+         style="display: block;padding: 1px 15px 1px 15px; text-shadow: none !important;">
+        <img src="img/clin.jpg" class="img-clin">
+        <table border="0" cellpadding="6" cellspacing="0" width="100%" style="overflow-y: hidden;">
+            <tbody>
+            <tr>
+                <td colspan="2" width="100%" id="nome" align="center" class="nome-clinica">
+                    Nome da Clínica
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" width="100%" style="font-weight:bold" id="estab"></td>
+            </tr>
+            <tr>
+                <td><b>Especialização:</b></td>
+                <td id="esp" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Conselho:</b></td>
+                <td id="crm" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td id="imgQualifi" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Endereço:</b></td>
+                <td id="endereco" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Bairro:</b></td>
+                <td id="bairro_clinica" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>CEP:</b>
+                <td id="cep" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Município:</b></td>
+                <td id="municipio" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Estado:</b></td>
+                <td id="estado" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Contato:</b></td>
+                <td id="tel" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><b>Site:</b></td>
+                <td width="100%" id="site" style="font-size: 14px;"></td>
+            </tr>
+            <tr>
+                <td colspan="1" style="width: 36%;"><b>Atualizado em:</b></td>
+                <td width="100%" id="atualizado" style="font-size: 14px;"></td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" id="lat">
+        <input type="hidden" id="lng">
+        <input type="hidden" id="cpfCredenciado">
+        <input type="hidden" id="seqCredenciado">
+        <input type="hidden" id="telCredenciado">
+
+    </div>
+    <div class="footer2" id="rodapeLista">
+        <table style="width:100%">
+            <tr>
+                <td width="35%" align="center">
+                    <div onclick="redesCtrl.gravarCredenciadoFavorito()" class="ui-link" style="" id="detalhes-favoritar"><img
+                            src="img/favoritog.png" width="80px" height="60px" class="detalhes-favotiarimg"><span
+                            class="detalhes-favoritar">Favoritar</span></div>
+                </td>
+                <td width="30%" align="center">
+                    <div onclick="redesCtrl.call();" lass="ui-link"><img
+                            src="img/phone.png" width="55px" height="50px" class="detalhes-phoneimg"><span
+                            class="detalhes-phone">Discar</span></div>
+                </td>
+                <td width="35%" align="center">
+                    <div onclick="redesCtrl.obterRota();"><img
+                            src="img/navig.png" width="55px" height="50px" class="detalhes-rotaimg"><span
+                            class="detalhes-rota">Rota</span></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="basic-map" data-role="page" data-theme="d">
+    <div data-role="header" data-position="fixed" class="banner-capesesp header-branco">
+        <a class="ui-btn-left anchor-capesesp" onclick='window.location ="index.html#pageone"'>
+            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+        </a>
+        <span class="ui-title">Rede Credenciada</span>
+        <a data-transition="pop" class="ui-btn-right anchor-capesesp back-webview" data-rel="back">
+            <span class="ui-icon-back ui-btn-icon-right ui-custom-capesesp">&nbsp;</span>
+        </a>
+    </div>
+    <div data-role="content" data-theme="d">
+        <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
+            <div id="map_canvas" style="height:350px;"></div>
+        </div>
+        <div id="results" style="display:none;">
+            <div id="directions"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
