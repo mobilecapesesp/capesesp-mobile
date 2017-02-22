@@ -52,4 +52,6 @@ build/app.zip
 
 build/app/
 
+www/css/.sass-cache/
+
 capesespmobi.keystore

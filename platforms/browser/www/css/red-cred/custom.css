@@ -1,0 +1,127 @@
+		.tab-buttons_click{
+			background: #65afb0 !important; 
+		}
+
+		.tab-buttons a {
+			color: #FFFFFF !important;
+			text-shadow: none !important;
+			font-weight: normal !important;
+		}
+
+		.title-red-cred {
+			padding: 1em;
+		}
+		
+		.listadiv {
+			font-weight: normal !important;
+			background: #e3e3e3 !important;
+			margin: 0 0 3px 0 !important; 
+			color: #333;
+		}
+		.lista li a {
+			font-weight: normal !important;
+			background: #e3e3e3 !important;
+			margin: 0 0 3px 0 !important; 
+			color: #333;
+		}
+		
+		.my-position li a {
+			font-weight: normal !important;
+			background: #ed743f !important;
+			margin: 0 0 3px 0 !important; 
+		}
+		.text-ubuntu {
+			font-size: 1.2em;
+			line-height: 1.3;
+			font-family: 'Ubuntu', sans-serif /*{global-font-family}*/;
+			color: #71716e;
+			font-weight: bold;
+			text-shadow: none !important;
+		}
+		.text-ubuntu2 {
+			font-size: 1em;
+			line-height: 1.3;
+			font-family: 'Ubuntu', sans-serif /*{global-font-family}*/;
+			color: #fff;
+			font-weight: normal;
+			text-shadow: none !important;
+			text-align: left;
+			padding-right: 10%;
+		}
+		.text-posicao {
+			font-size: 1em;
+			line-height: 1.3;
+			font-family: 'Ubuntu', sans-serif /*{global-font-family}*/;
+			color: #fff;
+			font-weight: normal;
+			text-shadow: none !important;
+
+		}
+		p2 {
+			display: block;
+			-webkit-margin-before: 1em;
+			-webkit-margin-after: -1.2em;
+			-webkit-margin-start: 10%;
+			-webkit-margin-end: 0px;
+		}
+		
+		.espaco {
+			padding-left:10%; 
+			margin-right:10%;
+		}
+		
+		.imgA {
+			display: inline-block;
+			vertical-align: middle;
+			max-height: 100%;
+			max-width: 100%;
+			background-image: url(img/footer.png);
+			background-size: cover;
+		}
+		
+		.espaco-entre {
+			padding-bottom:10px; 
+			padding-top:10px; 
+		}
+		
+
+		.footer2 {
+			background-color: rgba(186, 226, 221, 1);
+			position: fixed;
+			border-style: solid;
+			border-color: white /*{a-bar-border}*/;
+			border-width: 6px 0;
+			bottom: 2em;
+			width: 100%;
+			margin-left: 0;
+			display: block;
+			margin-bottom: -24px;
+			margin-right: 0;
+		}
+		
+		
+		.footer3 {
+			background-color: white;
+			position: fixed;
+			border-style: solid;
+			border-color: white /*{a-bar-border}*/;
+			border-width: 6px 0;
+			bottom: 2em;
+			width: 100%;
+			margin-left: 0;
+			display: block;
+			margin-bottom: -42px;
+			margin-right: 0;
+		}
+		.aguardando {
+			background-color: white;
+			filter: alpha(opacity =   70); /* IE */
+			opacity: 0.7; /* Safari, Opera */
+			-moz-opacity: 0.70; /* FireFox */
+			z-index: 9000000;
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+		}

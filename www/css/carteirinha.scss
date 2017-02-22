@@ -1,0 +1,172 @@
+// Mixins
+@mixin fullPos($pos) {
+    @if($pos==absolute) {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    height: 100vh;
+    max-height: 100vh;
+    position: $pos;
+}
+
+@mixin hideAttr() {
+    &[hide] {
+        display: none;
+    }
+}
+
+// ===== Header =====
+.header-carteirinha {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+// ===== Frente =====
+#carteirinha__frente {
+    @include fullPos(relative);
+    @include hideAttr();
+    .carteirinha__frente--img {
+        @include fullPos(absolute);
+        @include hideAttr();
+        position: relative;
+    }
+    #carteirinha__frente--action {
+        background: rgba(150, 150, 150, 0.9);
+        position: absolute;
+        top: 75%;
+        right: 0;
+        width: 35%;
+        height: 20%;
+        display: block;
+        color: white;
+        box-sizing: border-box;
+        padding: 2.5% 10% 3% 3%;
+        font-weight: 900;
+        border-radius: 15px 0 0 15px;
+        text-align: center;
+        font-size: 0.9em;
+    }
+}
+
+// ===== Verso =====
+#carteirinha__verso {
+    padding: 4% 4%;
+    box-sizing: border-box;
+    height: 94vh;
+    width: 94vw;
+    margin: 3vh 0;
+    border-radius: 20px;
+    //border: 3px solid #aaa;
+    .carteirinha__verso--block {
+        display: block;
+    }
+    // Dados
+    .carteirinha__verso--dados {
+        // Settings
+        $row-1-margin: 7.25%;
+        $row-2-margin: 5%;
+        $row-3-margin: 5.3%;
+        $row-4-margin: 5%;
+        $row-5-margin: 5%;
+        // Common Styles
+        display: inline-block;
+        vertical-align: text-top;
+        font-weight: 400;
+        height: 4.8vh;
+        font-size: 0.85em;
+        margin-top: -3px;
+        // Row 1
+        &#nome_usuario {
+            margin-bottom: $row-1-margin;
+        }
+        // Row 2
+        &#mat_usuario {
+            width: 21.6%;
+            margin-bottom: $row-2-margin;
+        }
+        &#nasc_usuario {
+            width: 19.5%;
+            margin-bottom: $row-2-margin;
+        }
+        &#vinculo_usuario {
+            width: 19.5%;
+            margin-bottom: $row-2-margin;
+        }
+        &#uf_usuario {
+            width: 9.8%;
+            margin-bottom: $row-2-margin;
+        }
+        // Row 3
+        &#plano_usuario {
+            width: 72%;
+            margin-bottom: $row-3-margin;
+            font-size: 0.8em;
+            line-height: 1.2em;
+        }
+        &#acomodacao_usuario {
+            width: 25%;
+            margin-bottom: $row-3-margin;
+        }
+        // Row 4
+        &#contrato {
+            width: 40.9%;
+            margin-bottom: $row-4-margin;
+        }
+        &#abrangencia {
+            width: 30.8%;
+            margin-bottom: $row-4-margin;
+        }
+        &#registro_ans {
+            width: 25%;
+            margin-bottom: $row-4-margin;
+        }
+        // Row 5
+        &#cobertura {
+            width: 72%;
+            margin-bottom: $row-5-margin;
+        }
+        &#validade {
+            width: 25%;
+            margin-bottom: $row-5-margin;
+        }
+        //Obs
+        &#observacoes {
+            position: absolute;
+            bottom: 5%;
+            line-height: 0.5em;
+            height: auto;
+            font-size: 0.7em;
+            h1 {
+                font-size: 0.68em !important;
+            }
+        }
+        //Disque ANS
+        &#disqueans {
+            position: absolute;
+            bottom: 13%;
+            left: 66%;
+            font-size: 0.8em;
+            text-align: center;
+            .disqueans--fone {
+                font-weight: 900;
+            }
+            .disqueans--site {
+                font-weight: 100;
+            }
+        }
+    }
+    .carteirinha__verso--label {
+        position: absolute;
+        margin-top: -22px;
+        font-size: 1em;
+        font-weight: 700;
+    }
+}

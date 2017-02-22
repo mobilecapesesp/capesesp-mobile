@@ -439,9 +439,13 @@ p2 {
 }
 
 .carteirinhaFundo {
-    background: url('../img/fundo_carteirinha_comlogo.png') no-repeat !important;
+    /*background: url('../img/carteira_verso_nacional_regional.png') no-repeat !important;
     background-size: 100% !important;
     min-height:23em !important;
+    position: fixed !important;*/
+    /*background: url('../img/carteira_verso_nacional_regional.png') no-repeat top center !important;*/
+    background-size: 100% 100% !important;
+    min-height: 100vh !important;
     position: fixed !important;
 }
 
@@ -453,6 +457,8 @@ p2 {
 
 .ui-page {
     background-color: white;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .header-carteirinha {

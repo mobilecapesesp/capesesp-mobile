@@ -5,6 +5,7 @@ var mainController = function () {
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
+            AndroidFullScreen.immersiveMode();
             screen.lockOrientation('portrait');
             if (cordova.recheckScreenOrientation)
                 cordova.recheckScreenOrientation(window.shouldRotateToOrientation, window.shouldRotateToOrientation);
