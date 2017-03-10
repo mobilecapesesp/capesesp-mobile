@@ -9,7 +9,7 @@ var buildBase = './build/app/',
     pluginsFolder = './plugins/**/*.*',
     appFolder = './www/**/*.*',
     buildZip = './build',
-    pathPhoneGapBuild = 'C:/Quality/Projetos/Capesesp/Projeto_CAPESESP_Mobile/trunk/04_CONSTRUCAO/build/phonegapbuild/PhonegapBuild';
+    pathPhoneGapBuild = 'D:/workspace/capesesp-canary/build/phonegapbuild/PhonegapBuild';
 
 
 gulp.task('copyConfig', function () {
@@ -33,7 +33,7 @@ gulp.task('prepareBuildZip', ['copyApp', 'copyPlugins','copyConfig'], function (
         .pipe(zip('app.zip'))
         .pipe(gulp.dest(buildZip));
 });
-
+/*
 gulp.task('build', ['prepareBuildZip'], shell.task([
     pathPhoneGapBuild
 ]));
@@ -42,4 +42,4 @@ gulp.task("openBuild", function () {
     gulp.src("./stubFile.html")
         .pipe(open("", {app: "google-chrome", url: "https://build.phonegap.com/apps/1215369/builds"}));
 });
-
+*/

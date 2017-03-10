@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, user-scalable=no" charset="utf-8"/>
 
-    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link href='css/Ubuntu-L.ttf' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="css/carteirinha.css">
+    <link href='css/Ubuntu-L.ttf' rel='stylesheet' type='text/css' />
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
@@ -14,61 +15,119 @@
     <script type="text/javascript" src="js/carteiraVirtual.js"></script>
     <script type="text/javascript" src="js/dao.js"></script>
 </head>
+
 <body>
-<div data-role="page" id="pageone" data-theme="a" data-content-theme="b">
-
-    <div data-role="header" class="banner-capesesp">
-        <a class="ui-btn-left anchor-capesesp" onclick='window.location.href="index.html#pageone"'>
-            <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
-        </a>
-        <span class="ui-title">Carteirinha Virtual</span>
-
-    </div>
-
-    <div id="menu_carteira_lista">
-
-    </div>
-    <div id="menu_carteira_det" style="display: none">
-        <div>
-
+    <div data-role="page" id="pageone" data-theme="a" data-content-theme="b">
+        <div data-role="header" class="banner-capesesp">
+            <a class="ui-btn-left anchor-capesesp backBtn" onclick="carteiraCtrl.backGrupoFamiliar()" style="display:none">
+                <span class="ui-icon-back ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+            </a>
+            <a class="ui-btn-left anchor-capesesp homeBtn" onclick='window.location.href="index.html#pageone"'>
+                <span class="ui-icon-home ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+            </a>
+            <span class="ui-title">Carteirinha Virtual</span>
+        </div>
+        <div id="menu_carteira_lista">
+        </div>
+        <div id="menu_carteira_det" style="display: none">
+            <div>
+            </div>
+        </div>
+        <div data-role="main" class="ui-content ui-responsive ">
+            <div class="ui-grid-solo" id="carteira_virtual">
+                <label style="color:black;font-size:small;text-align: left; font-weight: bold " for="carteira_lista_ul" id="label_cart_list_ul"></label>
+                <ul data-role="listview" data-inset="true" class="ui-alt-icon" id="carteira_lista_ul">
+                </ul>
+            </div>
         </div>
     </div>
-
-    <div data-role="main" class="ui-content ui-responsive ">
-        <div class="ui-grid-solo" id="carteira_virtual">
-            <label style="color:black;font-size:small;text-align: left; font-weight: bold " for="carteira_lista_ul"
-                   id="label_cart_list_ul"></label>
-            <ul data-role="listview" data-inset="true" class="ui-alt-icon" id="carteira_lista_ul">
-            </ul>
+    <div data-role="page" id="pagetwo" data-theme="a" data-content-theme="b" class="carteirinhaFundo">
+        <div data-role="header" data-transition="pop" class="banner-capesesp header-carteirinha">
+            <a class="ui-btn-left anchor-capesesp" onclick="carteiraCtrl.backCarteira()">
+                <span class="ui-icon-back ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
+            </a>
+            <span class="ui-title">Carteirinha Virtual</span>
         </div>
-    </div>
-</div>
+        <div id="carteirinha__frente">
+            <img class="carteirinha__frente--img nacional" hide src="images/carteira_nacional.png" alt="" />
+            <img class="carteirinha__frente--img regional" hide src="images/carteira_regional.png" alt="" />
+            <img class="carteirinha__frente--img odontologico" hide src="images/carteira_odonto.png" alt="" />
+            <div id="carteirinha__frente--action">Toque aqui para ver o verso</div>
+        </div>
+        <div id="carteirinha__verso">
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--dados" id="nome_usuario"></span>
+            </div>
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--label" id="mat_usuario_label">Matrícula</span>
+                <span class="carteirinha__verso--dados" id="mat_usuario"></span>
 
-<div data-role="page" id="pagetwo" data-theme="a" data-content-theme="b" class="carteirinhaFundo">
+                <span class="carteirinha__verso--label" id="nasc_usuario_label">Nascimento</span>
+                <span class="carteirinha__verso--dados" id="nasc_usuario"></span>
 
-    <div data-role="header" data-transition="pop" class="banner-capesesp header-carteirinha">
-        <a class="ui-btn-left anchor-capesesp" onclick="carteiraCtrl.backCarteira()">
-            <span class="ui-icon-back ui-btn-icon-left ui-custom-capesesp">&nbsp;</span>
-        </a>
-        <span class="ui-title">Carteirinha Virtual</span>
-    </div>
+                <span class="carteirinha__verso--label" id="vinculo_usuario_label">Vínculo</span>
+                <span class="carteirinha__verso--dados" id="vinculo_usuario">00/00/0000</span>
 
-    <div class="ui-grid-b carteira_lista_detalhe">
+                <span class="carteirinha__verso--label" id="uf_usuario_label">UF</span>
+                <span class="carteirinha__verso--dados" id="uf_usuario"></span>
+
+                <span class="carteirinha__verso--label" id="cns_label">Cartão Nac. de Saúde</span>
+                <span class="carteirinha__verso--dados" id="cns"></span>
+            </div>
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--label" id="plano_usuario_label">Plano/Produto</span>
+                <span class="carteirinha__verso--dados" id="plano_usuario"></span>
+
+                <span class="carteirinha__verso--label" id="acomodacao_usuario_label">Acomodação</span>
+                <span class="carteirinha__verso--dados" id="acomodacao_usuario"></span>
+            </div>
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--label" id="contrato_label">Contrato</span>
+                <span class="carteirinha__verso--dados" id="contrato"></span>
+
+                <span class="carteirinha__verso--label" id="abrangencia_label">Abrangência</span>
+                <span class="carteirinha__verso--dados" id="abrangencia"></span>
+
+                <span class="carteirinha__verso--label" id="registro_ans_label">Registro ANS</span>
+                <span class="carteirinha__verso--dados" id="registro_ans"></span>
+            </div>
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--label" id="cobertura_label">Cobertura</span>
+                <span class="carteirinha__verso--dados" id="cobertura"></span>
+                
+                <span class="carteirinha__verso--label" id="validade_label">Validade</span>
+                <span class="carteirinha__verso--dados" id="validade"></span>
+            </div>
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--label" id="patrocinador_label">Patrocinador Original</span>
+                <span class="carteirinha__verso--dados" id="patrocinador"></span>
+            </div>
+            <div class="carteirinha__verso--block">
+                <span class="carteirinha__verso--dados" id="observacoes"></span>
+                
+
+                <span class="carteirinha__verso--dados" id="disqueans">
+                    <div class="disqueans--fone">DISQUE ANS <span class="disqueans--number"></span></div>
+                    <div class="disqueans--site"></div>
+                </span>
+            </div>
+        </div>
+        <!--     <div class="ui-grid-b carteira_lista_detalhe">
         <div class="ui-block-b" style="width: 100%;">
-            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;" id="nome_usuario">ALDENOR RODRIGUES DE SOUZA</div>
+            <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;" id="nome_usuario"></div>
             <label class="carteirinha" for="nome_usuario">Nome</label>
         </div>
-        <div class="ui-block-a" style="position: relative;top: -25px;">
+        <div class="ui-block-a" style="position: relative;">
             <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
                  id="mat_usuario"></div>
             <label class="carteirinha" for="mat_usuario">Matrícula</label>
         </div>
-        <div class="ui-block-c" style="left: 35%;position: relative;top: -25px;">
+        <div class="ui-block-c" style="left: 35%;position: relative;">
             <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
                  id="uf_usuario"></div>
             <label class="carteirinha" for="uf_usuario">UF</label>
         </div>
-        <div class="ui-block-b" style="width: 100%;position: relative;top: -40px;">
+        <div class="ui-block-b" style="width: 100%;position: relative;">
             <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
                  id="plano_usuario"><br/>
             </div>
@@ -79,17 +138,17 @@
                  id="nasc_usuario"></div>
             <label class="carteirinha" for="nasc_usuario">Dat. Nasc.</label>
         </div>
-        <div class="ui-block-c" style="position: relative;top: -55px;left: 35%;">
+        <div class="ui-block-c" style="position: relative;left: 35%;">
             <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;font-size:small;text-align:center;"
                  id="acomadacao_usuario"></div>
             <label class="carteirinha" for="acomadacao_usuario">Acomadação</label>
         </div>
-        <div class="ui-grid-solo" style="display: inline;position: relative;top: -58px;">
+        <div class="ui-grid-solo" style="display: inline;position: relative;">
             <div class="ui-bar ui-bar-a ui-bar-carteira" style="color:black;text-align:center;"
                  id="observacoes"></div>
         </div>
+    </div> -->
     </div>
-
-</div>
 </body>
+
 </html>

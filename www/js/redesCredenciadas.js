@@ -1,10 +1,10 @@
 var generateRota;
 
 var rotas = rotasGoogle();
-$(function () {
+$(function() {
     $.mobile.loading("show");
     var initialScreenSize = window.innerHeight;
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", function() {
         if (window.innerHeight < initialScreenSize)
             $("footer").hide();
         else
@@ -16,12 +16,12 @@ $(function () {
         if ($.mobile.activePage.attr('id') == "pageone") {
             redesCtrl.performTabBack();
             e.preventDefault();
-        }
-        else
+        } else
             navigator.app.backHistory();
     }
 
     document.addEventListener("deviceready", onDeviceReady, false);
+
     function onDeviceReady() {
         $.mobile.loading("show");
         screen.lockOrientation('portrait');
@@ -29,20 +29,20 @@ $(function () {
             cordova.recheckScreenOrientation(window.shouldRotateToOrientation, window.shouldRotateToOrientation);
         $("#tabs").tabs();
         redesCtrl.AtivarTab(0, [1, 2, 3]);
-		$("#bairro").on("input", function (e) {
-			var lastVal = $(this).data("lastval");
-			if ($(this).data("lastval") != $(this).val() && 
-				(/^[a-zA-Z\s]+$/.test($(this).val()) || $(this).val() == "")) {
-				$(this).data("lastval", $(this).val());
-			}
-			else
-			   $(this).val(lastVal);
-		});
+        $("#bairro").on("input", function(e) {
+            var lastVal = $(this).data("lastval");
+            if ($(this).data("lastval") != $(this).val() &&
+                (/^[a-zA-Z\s]+$/.test($(this).val()) || $(this).val() == "")) {
+                $(this).data("lastval", $(this).val());
+            } else
+                $(this).val(lastVal);
+        });
     }
 
     var query = window.location.search.substring(1);
     var vars = query.split("&");
-    var cpf = "", seq = "";
+    var cpf = "",
+        seq = "";
     var chamarListarDetalhe = false;
     for (var i = 0; i < vars.length; i++) {
 
@@ -57,8 +57,7 @@ $(function () {
     if (chamarListarDetalhe && cpf != "" && seq != "") {
         $('#rede_credenciada').css("display", 'none');
         redesCtrl.listarDetalhe(cpf, seq);
-    }
-    else
+    } else
         redesCtrl.listarPlanos();
 
 
@@ -66,7 +65,7 @@ $(function () {
 
 });
 
-Array.prototype.remove = function (value) {
+Array.prototype.remove = function(value) {
     var idx = this.indexOf(value);
     if (idx != -1) {
         return this.splice(idx, 1); // The second parameter is the number of elements to remove.
@@ -74,13 +73,22 @@ Array.prototype.remove = function (value) {
     return false;
 };
 
-var redesCredenciadas = function () {
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}
+
+
+var redesCredenciadas = function() {
     var service = dataService();
     var useGps = false;
 
-    var listarPlanos = function () {
+    var listarPlanos = function() {
         service.chamadaGenericaAjax(configURLLogin.urlPlanos, configURLLogin.dadosVazio, retornoPlanos,
-            function () {
+            function() {
                 window.localtion.href = "index.html"
             },
             true);
@@ -121,27 +129,28 @@ var redesCredenciadas = function () {
         x.trigger("change")
     }
 
-    var retornoPlanos = function (responseParam) {
+    var retornoPlanos = function(responseParam) {
         var tamLista = responseParam.planos.length;
-        $.each(responseParam.planos, function (i, item) {
+        $.each(responseParam.planos, function(i, item) {
 
             var el = $("<li><a href='#' class='li-tab ui-btn ui-btn-icon-right ui-icon-carat-r' >" + item.plano.descricao + "</a></li>");
             if (i == 0)
                 el.addClass("ui-first-child");
             else if (i == tamLista - 1)
                 el.addClass("ui-last-child");
-            el.find("a").click(function (e) {
-                listarEstados(e.target, item.plano.codigo, item.plano.exibe_tipo_servico);
+            el.find("a").click(function(e) {
+                sessionStorage.setItem("planoSelecionado", JSON.stringify(item.plano));
+                listarEstados(e.target, item.plano.codigoANS, item.plano.exibeUrgEmer);
             });
 
             $("#planosList").append(el);
 
             $(".planos-redes").css("overflow-y", "scroll")
         });
-        var hideLoad = setInterval(function () {
+        var hideLoad = setInterval(function() {
             $.mobile.loading("hide");
         }, 500);
-        setTimeout(function () {
+        setTimeout(function() {
             clearInterval(hideLoad);
         }, 3000);
     };
@@ -153,7 +162,7 @@ var redesCredenciadas = function () {
             $("#header-back").hide();
         else
             $("#header-back").show();
-        $.each($(".tab-capesesp"), function (c, v) {
+        $.each($(".tab-capesesp"), function(c, v) {
             $(v).parent("li").removeClass("tab-selected")
         });
         $("#tabs").tabs("option", {
@@ -169,17 +178,16 @@ var redesCredenciadas = function () {
 
 
     // funções de Listagens
-    function listarEstados(obj, plano, exibeTipoServico) {
+    function listarEstados(obj, plano, urgEmer) {
         $(".plano-selecionado").removeClass("plano-selecionado");
         $(obj).addClass("plano-selecionado");
 
-        if (exibeTipoServico == "false")
-            $("#tipoServicoDiv").css("display", "none");
-        else
-            $("#tipoServicoDiv").css("display", "block");
+        configURLLogin.dadosEstados.codAns = plano;
 
-        configURLLogin.dadosEstados.cod_plano = plano;
-        configURLLogin.exibeTipoServico = exibeTipoServico;
+        configURLLogin.dadosEstados.urgEmer = "N";
+        if (urgEmer == true)
+            configURLLogin.dadosEstados.urgEmer = "S";
+
         service.chamadaGenericaAjax(configURLLogin.urlEstados, configURLLogin.dadosEstados, retornoEstados);
     }
 
@@ -188,11 +196,11 @@ var redesCredenciadas = function () {
         limpaCombo("municipioList");
         $("#prosseguir1").hide();
         $("#bairro").val("");
-        dadosListaCredenciados.cod_municipio = "";
-        dadosListaCredenciados.bairro = "";
+        dadosListaCredenciados.descMunicipio = "";
+        dadosListaCredenciados.descBairro = "";
 
-        $.each(responseParam.estados, function (i, item) {
-            preencheCombo(item.estado.descricao, item.estado.codigo, "estadoList");
+        $.each(responseParam.estados, function(i, item) {
+            preencheCombo(item.descricao, item.sigla, "estadoList");
         });
         selecionaItemCombo("estadoList");
 
@@ -209,7 +217,12 @@ var redesCredenciadas = function () {
 
     function listarMunicipio(estado) {
         if (estado != "0") {
-            configURLLogin.dadosMunicipio.cod_estado = estado;
+            var planData = JSON.parse(sessionStorage.getItem("planoSelecionado"));
+            configURLLogin.dadosMunicipio.siglaEstado = estado;
+            configURLLogin.dadosMunicipio.codAns = planData.codigoANS;
+            configURLLogin.dadosMunicipio.urgEmer = "N";
+            if (planData.exibeUrgEmer == true)
+                configURLLogin.dadosMunicipio.urgEmer = "S";
             service.chamadaGenericaAjax(configURLLogin.urlMunicipios, configURLLogin.dadosMunicipio, retornoMunicipios);
         }
     }
@@ -219,14 +232,13 @@ var redesCredenciadas = function () {
         $("#prosseguir1").hide();
         $("#bairro").val("");
         if (!useGps) {
-            dadosListaCredenciados.cod_municipio = "";
-            dadosListaCredenciados.bairro = "";
-        }
-        else
+            dadosListaCredenciados.descMunicipio = "";
+            dadosListaCredenciados.descBairro = "";
+        } else
             useGps = false;
 
-        $.each(responseParam.municipios, function (i, item) {
-            preencheCombo(item.municipio.municipio, item.municipio.cod_municipio, "municipioList");
+        $.each(responseParam.municipios, function(i, item) {
+            preencheCombo(item.municipio, item.municipio, "municipioList");
         });
         selecionaItemCombo("municipioList");
 
@@ -237,25 +249,17 @@ var redesCredenciadas = function () {
 
         var muniEl = $("#municipioList");
         if ($("#tipoServicoDiv").css("display") == "none") {
-            muniEl.removeAttr("onchange").bind("change", function () {
+            muniEl.removeAttr("onchange").bind("change", function() {
                 listarServico('1')
             });
             $("#servicoList").removeAttr("disabled");
         } else {
             muniEl.removeAttr("onchange");
-            muniEl.bind("change", function () {
+            muniEl.bind("change", function() {
                 if (isEstadoSelected()) {
-                    $(prosseguir1).show().focus().unbind('click').click(function () {
-                        if (!configURLLogin.exibeTipoServico) {
-                            $("#tipoServicoDiv").css("display", "none");
-                            listarServico(0, function () {
-                                AtivarTab(2, [3]);
-                            });
-                        }
-                        else {
-                            $(".esp-servico").css("display", "none");
-                            listarTipoServico(this.value);
-                        }
+                    $(prosseguir1).show().focus().unbind('click').click(function() {
+						$(".esp-servico").css("display", "none");
+						listarTipoServico(this.value);
                         window.sessionStorage.setItem("address", $("#estadoList-button span").text().trim() + "," + $("#municipioList-button span").text().trim() + $("#bairro").val().trim() + ", Brasil")
                     })
                 }
@@ -263,11 +267,11 @@ var redesCredenciadas = function () {
             });
         }
 
-        if (dadosListaCredenciados.cod_municipio) {
-            $("#municipioList").val(dadosListaCredenciados.cod_municipio).selectmenu('refresh', true);
+        if (dadosListaCredenciados.descMunicipio) {
+            $("#municipioList").val(dadosListaCredenciados.descMunicipio).selectmenu('refresh', true);
             $("#municipioList").trigger("change");
-            if (dadosListaCredenciados.bairro)
-                $("#bairro").val(dadosListaCredenciados.bairro);
+            if (dadosListaCredenciados.descBairro)
+                $("#bairro").val(dadosListaCredenciados.descBairro);
         }
 
     }
@@ -280,13 +284,14 @@ var redesCredenciadas = function () {
 
 
     function listarServico(modalidade, callback) {
-        configURLLogin.dadosServicos.cod_plano = configURLLogin.dadosEstados.cod_plano;
-        configURLLogin.dadosServicos.cod_estado = configURLLogin.dadosMunicipio.cod_estado;
-        configURLLogin.dadosServicos.cod_municipio = $("#municipioList").val();
-        configURLLogin.dadosServicos.cod_modalidade = modalidade;
+        configURLLogin.dadosServicos.codAns = configURLLogin.dadosEstados.codAns;
+        configURLLogin.dadosServicos.urgEmer = configURLLogin.dadosEstados.urgEmer;
+        configURLLogin.dadosServicos.siglaEstado = configURLLogin.dadosMunicipio.siglaEstado;
+        configURLLogin.dadosServicos.descMunicipio = $("#municipioList").val();
+        configURLLogin.dadosServicos.codModalidade = modalidade;
         if (callback)
             service.chamadaGenericaAjax(configURLLogin.urlServico, configURLLogin.dadosServicos,
-                function (response) {
+                function(response) {
                     retornoServico(response);
                     callback();
                 });
@@ -299,43 +304,49 @@ var redesCredenciadas = function () {
         limpaCombo("servicoList");
 
         var vazio = true;
-        var modalidade = configURLLogin.dadosServicos.cod_modalidade;
-        $.each(responseParam.servicos, function (i, item) {
+        var modalidade = configURLLogin.dadosServicos.codModalidade;
+        $.each(responseParam.servicos, function(i, item) {
             vazio = false;
             preencheCombo(item.descricao, item.codigo, "servicoList");
         });
-        if (vazio && $('#tiposervicoList').val() > 0 && modalidade != "5") {
+        if (vazio && $('#tiposervicoList').val() > 0 && modalidade != "05") {
             runtimePopup("Rede Credenciada", "Não há serviços para o plano selecionado");
             return;
         }
-        if (!vazio && modalidade != "5") {
+        if (!vazio && modalidade != "05") {
             $("#servicoLabel").text(responseParam.label);
             $("#servicoDiv").css("display", "block");
         }
-        if (vazio && modalidade == "5") {
-            $("#botaoBusca").unbind('click').click(function () {
+        if (vazio && modalidade == "05") {
+            $("#prosseguir2").show();
+            $("#botaoBusca").unbind('click').click(function() {
                 listarCredenciados()
             });
-            $("#botaoBusca").hide();
+            $("#botaoBusca").show();
         }
         configURLLogin.codEspAtend = responseParam.codigo;
 
         var elServList = $("#servicoList");
+
+
         if (elServList.val())
             elServList.removeAttr("disabled");
-        if (!vazio || !configURLLogin.exibeTipoServico)
+        if (!vazio)
             $(".esp-servico").css("display", "");
         else
             $(".esp-servico").css("display", "none");
-        if (isServicoSelected() || !configURLLogin.exibeTipoServico) {
-            $(prosseguir2).show().focus().unbind('click').click(function () {
+        if (isServicoSelected()) {
+            $(prosseguir2).focus().unbind('click').click(function() {
 
                 AtivarTab(3, []);
+
                 $("#botaoBusca").show();
-                $("#botaoBusca").unbind('click').click(function () {
+
+                $("#botaoBusca").unbind('click').click(function() {
                     listarCredenciados();
                 });
             })
+
         }
     }
 
@@ -343,27 +354,31 @@ var redesCredenciadas = function () {
     function listarTipoServico() {
         if (!isEstadoSelected())
             return;
-
-        configURLLogin.dadosTipoServico.cod_municipio = $("#municipioList").val();
-        configURLLogin.dadosTipoServico.cod_estado = configURLLogin.dadosMunicipio.cod_estado;
+        var planData = JSON.parse(sessionStorage.getItem("planoSelecionado"));
+        configURLLogin.dadosTipoServico.descMunicipio = $("#municipioList").val();
+        configURLLogin.dadosTipoServico.siglaEstado = configURLLogin.dadosMunicipio.siglaEstado;
+        configURLLogin.dadosTipoServico.codAns = planData.codigoANS;
+        configURLLogin.dadosTipoServico.urgEmer = "N";
+        if (planData.exibeUrgEmer == true)
+            configURLLogin.dadosTipoServico.urgEmer = "S";
         service.chamadaGenericaAjax(configURLLogin.urlTipoServico, configURLLogin.dadosTipoServico, retornoTipoServico);
     }
 
     function retornoTipoServico(responseParam) {
         limpaCombo("tiposervicoList");
         $("#prosseguir2").hide();
-        dadosListaCredenciados.cod_especialidade = "";
-        $.each(responseParam.tipo_servicos, function (i, item) {
-            preencheCombo(item.tipo_servico.descricao, item.tipo_servico.codigo, "tiposervicoList");
+        dadosListaCredenciados.codEspecialidade = "";
+        $.each(responseParam.modalidades, function(i, item) {
+            preencheCombo(item.descricao, item.codigo, "tiposervicoList");
         });
 
-        if (responseParam.tipo_servicos.length == 0 && $('#estadoList').val() > 0) {
+        if (responseParam.modalidades.length == 0 && $('#estadoList').val() > 0) {
             runtimePopup("Rede Credenciada", "Não há serviços para o plano selecionado");
             return;
         }
         selecionaItemCombo("tiposervicoList");
 
-        $("#servicoList").attr({disabled: "disabled"});
+        $("#servicoList").attr({ disabled: "disabled" });
         AtivarTab(2, [3]);
 
     }
@@ -375,41 +390,49 @@ var redesCredenciadas = function () {
             return true;
     }
 
+    function checkIfSpecialityIsNull(select) {
+        console.log(select);
+    }
 
     function selecionarEspecialidade(param) {
         var x = $("#tipoServicoDiv");
 
-        if ((x.css("display") == "block" && $("#tiposervicoList").find("option:selected").val() == "0") || $("#servicoList option:selected").val() == "0")
+        if (param != "0") {
+            $("#prosseguir2").show();
+        }
+
+        if ((x.css("display") == "block" && $("#tiposervicoList").find("option:selected").val() == "0") || $("#servicoList option:selected").val() == "0" || $(".esp-servico").css("display") == "none")
             return;
 
-        $("#botaoBusca").unbind('click').click(function () {
+        $("#botaoBusca").unbind('click').click(function() {
             AtivarTab(3, []);
             listarCredenciados();
         });
         $("#botaoBusca").show();
 
         if (configURLLogin.codEspAtend == "especialidade") {
-            dadosListaCredenciados.cod_especialidade = param;
-            dadosListaCredenciados.cod_tipo_atendimento = 0;
+            dadosListaCredenciados.codEspecialidade = pad(param, 8);
+            dadosListaCredenciados.codTipoAtendimento = "";
         } else if (configURLLogin.codEspAtend == "atendimento") {
-            dadosListaCredenciados.cod_especialidade = 0;
-            dadosListaCredenciados.cod_tipo_atendimento = param;
+            dadosListaCredenciados.codEspecialidade = "";
+            dadosListaCredenciados.codTipoAtendimento = param;
         }
     }
 
     function listarCredenciados(semBairro) {
-        dadosListaCredenciados.cod_plano = configURLLogin.dadosEstados.cod_plano;
-        dadosListaCredenciados.cod_estado = configURLLogin.dadosMunicipio.cod_estado;
-        dadosListaCredenciados.cod_municipio = configURLLogin.dadosTipoServico.cod_municipio;
-        dadosListaCredenciados.bairro = semBairro ? "" : $("#bairro").val();
-        dadosListaCredenciados.cod_tipo_servico = configURLLogin.dadosServicos.cod_modalidade;
-        dadosListaCredenciados.nome_prestador = $("#prestador").val();
+        dadosListaCredenciados.codAns = configURLLogin.dadosEstados.codAns;
+        dadosListaCredenciados.urgEmer = configURLLogin.dadosEstados.urgEmer;
+        dadosListaCredenciados.siglaEstado = configURLLogin.dadosMunicipio.siglaEstado;
+        dadosListaCredenciados.descMunicipio = configURLLogin.dadosTipoServico.descMunicipio;
+        dadosListaCredenciados.descBairro = semBairro ? "" : $("#bairro").val().toUpperCase();
+        dadosListaCredenciados.codModalidade = configURLLogin.dadosServicos.codModalidade;
+        dadosListaCredenciados.nomePrestador = $("#prestador").val();
         service.chamadaGenericaAjax(configURLLogin.urlListaCredenciados, dadosListaCredenciados, retornoListaCredenciados);
     }
 
 
     function retornoListaCredenciados(responseParam) {
-        if (responseParam.credenciados.credenciado.length == 0 && dadosListaCredenciados.bairro) {
+        if (responseParam.credenciados.length == 0 && dadosListaCredenciados.descBairro) {
             window.localStorage.setItem("buscaBairroSemOcorrencia", "true");
             listarCredenciados(true);
             return;
@@ -421,7 +444,7 @@ var redesCredenciadas = function () {
         $.mobile.changePage("#credeciadosList");
         $("#lista-wrapper").children().remove();
         var buscaBairroSemOcorrencia = window.localStorage.getItem("buscaBairroSemOcorrencia");
-        if (buscaBairroSemOcorrencia && responseParam.credenciados.credenciado.length > 0) {
+        if (buscaBairroSemOcorrencia && responseParam.credenciados.length > 0) {
             window.localStorage.removeItem("buscaBairroSemOcorrencia");
             var errorMsgsssss = "<h1 style='color:black;font-size:medium;text-align: center'>A busca pelo bairro " + $("#bairro").val() + " não retornou nenhum resultado válido. Seguem os demais prestadores de serviços do município especificado.</h1>";
             $("#lista-wrapper").append(errorMsgsssss)
@@ -432,30 +455,30 @@ var redesCredenciadas = function () {
         $("input[name='lngs']").remove();
         $("input[name='cpfs']").remove();
         $("input[name='seqs']").remove();
-        $.each(ultimosCredenciados.credenciados.credenciado, function (i, item) {
+        $.each(ultimosCredenciados.credenciados, function(i, item) {
             vazio = false;
             var credDiv = $("<div class='lista-pai'></div>")
-                .attr({id: "" + item.cpf_cnpj})
+                .attr({ id: "" + item.cpfCnpj })
                 .appendTo("#lista-wrapper").unbind('click')
-                .click(function () {
-                    listarDetalhe(item.cpf_cnpj, item.sequencial);
+                .click(function() {
+                    listarDetalhe(item.cpfCnpj, item.sequencial);
                 });
 
             $("<h3>").html(item.nome).appendTo(credDiv);
 
             var telefones = "";
 
-            $.each(item.telefones.telefone, function (j, obj) {
-                telefones += "(" + obj.ddd + ")" + obj.numero + ",  ";
+            $.each(item.telefones, function(j, obj) {
+                telefones += "(" + obj.ddd + ")" + obj.fixo + ",  ";
             });
 
             var telefonesClean = telefones.trim();
             $("<div class='lista-descricao numberonly'>").html(item.bairro + "<br/>" + telefones.substring(0, telefonesClean.length - 1) + "<span></span>").appendTo(credDiv);
 
-            var lat = $("<input type='hidden' name='lats'>").attr({value: "" + item.georreferenciamento.lat});
-            var lng = $("<input type='hidden' name='lngs'>").attr({value: "" + item.georreferenciamento.lng});
-            var cpf = $("<input type='hidden' name='cpfs'>").attr({value: "" + item.cpf_cnpj});
-            var seq = $("<input type='hidden' name='seqs'>").attr({value: "" + item.sequencial});
+            var lat = $("<input type='hidden' name='lats'>").attr({ value: "" + item.georreferenciamento.lat });
+            var lng = $("<input type='hidden' name='lngs'>").attr({ value: "" + item.georreferenciamento.lng });
+            var cpf = $("<input type='hidden' name='cpfs'>").attr({ value: "" + item.cpf_cnpj });
+            var seq = $("<input type='hidden' name='seqs'>").attr({ value: "" + item.sequencial });
 
             $("#listaClinicas").append(lat);
             $("#listaClinicas").append(lng);
@@ -469,35 +492,38 @@ var redesCredenciadas = function () {
             $("#mapaLista").hide();
             var errorMsgsssss = $("<h1 style='color:black;font-size:medium;text-align: center'>Não foi encontrado nenhum credenciado com a seleção anterior</h1>");
             $("#lista-wrapper").append(errorMsgsssss)
-        }
-        else
+        } else
             $("#mapaLista").show();
 
     }
 
     function listarDetalhe(cpf, seq) {
+        cpf = cpf.replace("/", "").replace("-", "").replace(".", "").replace(".", "");
         $("#cpfCredenciado").val(cpf);
         $("#seqCredenciado").val(seq);
-        configURLLogin.dadosDetalheCredenciado.cpf_cnpj = cpf;
-        configURLLogin.dadosDetalheCredenciado.seq = seq;
+        configURLLogin.dadosDetalheCredenciado.cpfCnpj = cpf;
+        configURLLogin.dadosDetalheCredenciado.sequencial = seq;
         service.chamadaGenericaAjax(configURLLogin.urlDetalheCredenciado, configURLLogin.dadosDetalheCredenciado, retornoDetalheCredenciado);
     }
 
 
-    var RemoveTableRow = function (handler) {
+    var RemoveTableRow = function(handler) {
         var tr = handler.closest('tr');
-        tr.fadeOut(400, function () {
+        tr.fadeOut(400, function() {
             tr.remove();
         });
     };
 
     function convertDate(date) {
         var numbers = date.split('-');
+        if (date.substr(2, 1) == "/")
+            return date;
         return numbers[2] + "/" + numbers[1] + "/" + numbers[0];
     }
 
     function retornoDetalheCredenciado(responseParam) {
         $.mobile.changePage("#exibeCredenciados");
+        $("#esp").text("");
         var favoritos = JSON.parse(window.localStorage.getItem("favoritos"));
         var valorCpf = $("#cpfCredenciado").val();
         var valorSeq = $("#seqCredenciado").val();
@@ -505,45 +531,47 @@ var redesCredenciadas = function () {
         if (listaContemValorFav(favoritos, valorCpf, valorSeq)) {
             $(".detalhes-favoritar").text("Favoritado");
             $(".detalhes-favotiarimg").attr("src", "img/favoritoy.png");
-            $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function () {
+            $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function() {
                 apagarFavorito($("#cpfCredenciado").val(), $("#seqCredenciado").val(), true);
             });
 
-        }
-        else {
+        } else {
             $(".detalhes-favoritar").text("Favoritar");
             $(".detalhes-favotiarimg").attr("src", "img/favoritog.png");
-            $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function () {
+            $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function() {
                 gravarCredenciadoFavorito();
             });
         }
-        $("#nome").text(testaNulo(responseParam.credenciado.nome_fantasia));
+        $("#nome").text(testaNulo(responseParam.credenciados.nomeFantasia));
         if ($("#nome").text() == "") {
-            RemoveTableRow($("#nome"));
+            $("#nome").text(testaNulo(responseParam.credenciados.razaoSocial));
+            if ($("#nome").text() == "") {
+                RemoveTableRow($("#nome"));
+            }
         }
-        $("#crm").html(testaNulo(responseParam.credenciado.registro_conselho.descricao) + " " + testaNulo(responseParam.credenciado.registro_conselho.registro) + "<span style='color:white !important'>.</span>");
+        $("#crm").html(testaNulo(responseParam.credenciados.registroConselho.descricao) + " " + testaNulo(responseParam.credenciados.registroConselho.registro) + "<span style='color:white !important'>.</span>");
         if ($("#crm").text() == "") {
             RemoveTableRow($("#crm"));
         }
-        $("#endereco").text(testaNulo(responseParam.credenciado.endereco.logradouro) + " " + testaNulo(responseParam.credenciado.endereco.numero));
+        $("#endereco").text(testaNulo(responseParam.credenciados.endereco.logradouro) + " " + testaNulo(responseParam.credenciados.endereco.numero));
         if ($("#endereco").text() == "") {
             RemoveTableRow($("#endereco"));
         }
-        $("#bairro_clinica").text(testaNulo(responseParam.credenciado.endereco.bairro));
+        $("#bairro_clinica").text(testaNulo(responseParam.credenciados.endereco.bairro));
         if ($("#bairro_clinica").text() == "") {
             RemoveTableRow($("#bairro_clinica"));
         }
 
-        $("#estado").text(testaNulo(responseParam.credenciado.endereco.estado));
+        $("#estado").text(testaNulo(responseParam.credenciados.endereco.estado));
         if ($("#estado").text() == "") {
             RemoveTableRow($("#estado"));
         }
 
-        $("#municipio").text(testaNulo(responseParam.credenciado.endereco.municipio));
+        $("#municipio").text(testaNulo(responseParam.credenciados.endereco.municipio));
         if ($("#municipio").text() == "") {
             RemoveTableRow($("#municipio"));
         }
-        var cepString = responseParam.credenciado.endereco.cep.toString().trim();
+        var cepString = responseParam.credenciados.endereco.cep.toString().trim();
         $("#cep").html(testaNulo(cepString) + "<span style='color:white !important'>.</span>");
         if ($("#cep").text() == "") {
             RemoveTableRow($("#cep"));
@@ -551,41 +579,57 @@ var redesCredenciadas = function () {
         if (cepString.length == 8)
             $("#cep").html(cepString.substring(0, 5) + "-" + cepString.substring(5, 8));
 
-        if (responseParam.credenciado.telefones != null && responseParam.credenciado.telefones.length > 0) {
-            var objeto = responseParam.credenciado.telefones[0];
+        if (responseParam.credenciados.telefones != null && responseParam.credenciados.telefones.length > 0) {
+            var objeto = responseParam.credenciados.telefones[0];
             var x = document.getElementById("telCredenciado");
-            x.value = objeto.ddd + "" + objeto.telefone;
+            x.value = objeto.ddd + "" + objeto.fixo;
             x.value = x.value.substring(1);
         }
         var tel = "";
-        $.each(responseParam.credenciado.telefones, function (i, item) {
-            tel += "(" + item.ddd + ")" + item.telefone + " ";
+        $.each(responseParam.credenciados.telefones, function(i, item) {
+            tel += "(" + item.ddd + ")" + item.fixo + " ";
         });
         $("#tel").html(tel + "<span style='color:white !important'>.</span>");
         if ($("#tel").text() == "") {
             RemoveTableRow($("#tel"));
         }
-        $("#site").text(testaNulo(responseParam.credenciado.site));
+        $("#site").text(testaNulo(responseParam.credenciados.site));
         if ($("#site").text() == "") {
             RemoveTableRow($("#site"));
         }
-        $("#estab").text(testaNulo(responseParam.credenciado.tipo_estabelecimento));
+        $("#estab").text(testaNulo(responseParam.credenciados.tipoEstabelecimento));
         if ($("#estab").text() == "") {
             RemoveTableRow($("#estab"));
         }
-        $("#atualizado").text(testaNulo(convertDate(responseParam.credenciado.endereco.data_atualizacao)));
+        $("#atualizado").text(testaNulo(convertDate(responseParam.credenciados.ultimaAlteracao)));
         if ($("#atualizado").text() == "") {
             RemoveTableRow($("#atualizado"));
         }
-        $("#esp").text(testaNulo(responseParam.credenciado.qualificacao.qualificacao));
-        if ($("#esp").text() == "") {
-            RemoveTableRow($("#esp"));
+
+        function fillEspecialization() {
+            for (var i = 0; i < responseParam.credenciados.especialidades.length; i++) {
+                var espItem = responseParam.credenciados.especialidades[i].especialidade;
+                var text = $("#esp").text().concat(espItem);
+                if ((i + 1) != responseParam.credenciados.especialidades.length) {
+                    text = text.concat(", ");
+                } else {
+                    text = text.concat(" ");
+                }
+
+                $("#esp").text(text);
+            }
+            //$("#esp").text(testaNulo(responseParam.credenciados.especialidades));
+            if ($("#esp").text() == "") {
+                RemoveTableRow($("#esp"));
+            }
         }
-        $("#lat").text(testaNulo(responseParam.credenciado.endereco.georreferenciamento.lat));
-        $("#lng").text(testaNulo(responseParam.credenciado.endereco.georreferenciamento.lng));
+        fillEspecialization();
+
+        $("#lat").text(testaNulo(responseParam.credenciados.endereco.georreferenciamento.lat));
+        $("#lng").text(testaNulo(responseParam.credenciados.endereco.georreferenciamento.lng));
         $("#imgQualifi").children().remove();
-        $.each(responseParam.credenciado.qualificacao, function (j, obj) {
-            var qualif = $("<img src='img/" + obj.cod_entidade + ".png' alt='Home' width='18' height='20'>");
+        $.each(responseParam.credenciados.qualificacao, function(j, obj) {
+            var qualif = $("<img src='img/" + obj.codEntidade + ".png' alt='Home' width='18' height='20'>");
             $("#imgQualifi").append(qualif);
         });
     }
@@ -600,8 +644,7 @@ var redesCredenciadas = function () {
             for (var i = 0; i < favoritos.length; i++) {
                 listarFavoritosServico(favoritos[i]);
             }
-        }
-        else
+        } else
             exibeMensagemFavVazio("Não há favoritos cadastrados");
 
     }
@@ -610,7 +653,7 @@ var redesCredenciadas = function () {
         var itemFavorito = $("<div>")
             .attr("data-role", "collapsible")
             .appendTo("#listaFav")
-            .click(function (e) {
+            .click(function(e) {
                 if ($(e.target).text() != "Remover")
                     listarDetalhe(favorito.cpf, favorito.seq);
 
@@ -624,7 +667,7 @@ var redesCredenciadas = function () {
 
         $("<a href='#' data-role='button' data-inline='true' data-icon='delete' data-position='right' style='color:white' >Remover</a>")
             .appendTo(itemFavorito)
-            .click(function (e) {
+            .click(function(e) {
                 apagarFavorito(favorito.cpf, favorito.seq);
             });
         $("#listaFav").trigger("create");
@@ -652,7 +695,7 @@ var redesCredenciadas = function () {
 
     function obterEndereco() {
         $.mobile.loading("show");
-        navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout: 5000, enableHighAccuracy: true});
+        navigator.geolocation.getCurrentPosition(geo_success, geo_error, { timeout: 10000, enableHighAccuracy: true });
     }
 
     function geo_success(position) {
@@ -665,15 +708,14 @@ var redesCredenciadas = function () {
     function retornoEndereco(responseParam) {
         if (responseParam.statusExecucao.executadoCorretamente) {
             var pos = responseParam.posicionamento.endereco;
-            $("#estadoList").val(pos.estado.codigo).selectmenu('refresh', true);
-            $("#estadoList").change(function () {
-                dadosListaCredenciados.cod_estado = pos.estado.codigo;
-                dadosListaCredenciados.cod_municipio = pos.municipio.codigo;
-                dadosListaCredenciados.bairro = pos.bairro.descricao;
+            $("#estadoList").val(pos.estado.sigla).selectmenu('refresh', true);
+            $("#estadoList").change(function() {
+                dadosListaCredenciados.siglaEstado = pos.estado.sigla;
+                dadosListaCredenciados.descMunicipio = pos.municipio;
+                dadosListaCredenciados.descBairro = pos.bairro;
             });
             $("#estadoList").trigger("change");
-        }
-        else
+        } else
             runtimePopup("Obter posição", "Erro na obtenção da posição, favor preencher manualmente.")
 
     }
@@ -718,7 +760,7 @@ var redesCredenciadas = function () {
                 runtimePopup("Favorito", "Favorito gravado com sucesso");
                 $(".detalhes-favoritar").text("Favoritado");
                 $(".detalhes-favotiarimg").attr("src", "img/favoritoy.png");
-                $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function () {
+                $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function() {
                     apagarFavorito($("#cpfCredenciado").val(), $("#seqCredenciado").val(), true);
                 });
             }
@@ -746,7 +788,7 @@ var redesCredenciadas = function () {
             else {
                 $(".detalhes-favoritar").text("Favoritar");
                 $(".detalhes-favotiarimg").attr("src", "img/favoritog.png");
-                $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function () {
+                $("#detalhes-favoritar").removeAttr('onclick').unbind('click').click(function() {
                     gravarCredenciadoFavorito();
                 });
                 var listaFavsColap = $(".ui-collapsible-content a");
@@ -772,8 +814,8 @@ var redesCredenciadas = function () {
             var lats = [];
             var lngs = [];
 
-            lats [0] = lat;
-            lngs [0] = lng;
+            lats[0] = lat;
+            lngs[0] = lng;
 
             var storage = window.sessionStorage;
 
@@ -798,13 +840,19 @@ var redesCredenciadas = function () {
         var paramCpf = document.getElementsByName("cpfs");
         var paramSeq = document.getElementsByName("seqs");
 
-        var lat_aux = [], long_aux = [], cpf_aux = [], seq_aux = [];
+        var lat_aux = [],
+            long_aux = [],
+            cpf_aux = [],
+            seq_aux = [];
         var j = 0;
 
-        var lats = [], lngs = [], cpfs = [], seqs = [];
+        var lats = [],
+            lngs = [],
+            cpfs = [],
+            seqs = [];
 
         for (var i = 0; i < paramLat.length; i++) {
-            if (paramLat[i].value <= 5.35 && paramLat[i].value >= -33.8 && paramLng[i].value >= -74.2 && paramLng[i].value <= -34.6) {  // so vai mapear os valores dentro do BRASIL
+            if (paramLat[i].value <= 5.35 && paramLat[i].value >= -33.8 && paramLng[i].value >= -74.2 && paramLng[i].value <= -34.6) { // so vai mapear os valores dentro do BRASIL
                 lat_aux[j] = paramLat[i].value;
                 long_aux[j] = paramLng[i].value;
                 cpf_aux[j] = paramCpf[i].value;
@@ -814,12 +862,12 @@ var redesCredenciadas = function () {
         }
         for (var i = 0; i < lat_aux.length; i++) {
             if (listaNaoContemValor(lats, lat_aux[i]))
-                lats [i] = lat_aux[i];
+                lats[i] = lat_aux[i];
             if (listaNaoContemValor(lngs, long_aux[i]))
-                lngs [i] = long_aux[i];
+                lngs[i] = long_aux[i];
             if (listaNaoContemValor(cpfs, cpf_aux[i]))
-                cpfs [i] = cpf_aux[i];
-            seqs [i] = seq_aux[i];
+                cpfs[i] = cpf_aux[i];
+            seqs[i] = seq_aux[i];
         }
 
         var storage = window.sessionStorage;
@@ -835,17 +883,16 @@ var redesCredenciadas = function () {
         generateRota = false;
     }
 
-    var performTabBack = function () {
+    var performTabBack = function() {
 
         var tabs = [1, 2, 3];
 
         var tabAnterior = parseInt($("#tabs div[aria-expanded=true]").attr("aria-labelledby").substring("3") - 1);
         if (tabAnterior >= 0) {
-            AtivarTab(tabAnterior, tabs.filter(function (x) {
+            AtivarTab(tabAnterior, tabs.filter(function(x) {
                 return x > tabAnterior
             }));
-        }
-        else
+        } else
             window.location.href = "index.html";
     };
 
@@ -857,6 +904,7 @@ var redesCredenciadas = function () {
         listarTipoServico: listarTipoServico,
         listarServico: listarServico,
         listarDetalhe: listarDetalhe,
+        checkIfSpecialityIsNull: checkIfSpecialityIsNull,
         selecionarEspecialidade: selecionarEspecialidade,
         call: call,
         obterEndereco: obterEndereco,

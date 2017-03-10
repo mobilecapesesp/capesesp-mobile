@@ -1,0 +1,124 @@
+.header-carteirinha {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; }
+
+#carteirinha__frente {
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  height: 100vh;
+  max-height: 100vh;
+  position: relative; }
+  #carteirinha__frente[hide] {
+    display: none; }
+  #carteirinha__frente .carteirinha__frente--img {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    height: 100vh;
+    max-height: 100vh;
+    position: absolute;
+    position: relative; }
+    #carteirinha__frente .carteirinha__frente--img[hide] {
+      display: none; }
+  #carteirinha__frente #carteirinha__frente--action {
+    background: rgba(150, 150, 150, 0.9);
+    position: absolute;
+    top: 75%;
+    right: 0;
+    width: 35%;
+    height: 20%;
+    display: block;
+    color: white;
+    box-sizing: border-box;
+    padding: 2.5% 10% 3% 3%;
+    font-weight: 900;
+    border-radius: 15px 0 0 15px;
+    text-align: center;
+    font-size: 0.9em; }
+
+#carteirinha__verso {
+  padding: 4% 4%;
+  box-sizing: border-box;
+  height: 94vh;
+  width: 94vw;
+  margin: 3vh 0;
+  border-radius: 20px; }
+  #carteirinha__verso .carteirinha__verso--block {
+    display: block; }
+  #carteirinha__verso .carteirinha__verso--dados {
+    display: inline-block;
+    vertical-align: text-top;
+    font-weight: 400;
+    height: 4.8vh;
+    font-size: 0.85em;
+    margin-top: -3px; }
+    #carteirinha__verso .carteirinha__verso--dados#nome_usuario {
+      margin-bottom: 7.25%; }
+    #carteirinha__verso .carteirinha__verso--dados#mat_usuario {
+      width: 21.6%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#nasc_usuario {
+      width: 19.5%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#vinculo_usuario {
+      width: 19.5%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#uf_usuario {
+      width: 9.8%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#plano_usuario {
+      width: 72%;
+      margin-bottom: 5.3%;
+      font-size: 0.8em;
+      line-height: 1.2em; }
+    #carteirinha__verso .carteirinha__verso--dados#acomodacao_usuario {
+      width: 25%;
+      margin-bottom: 5.3%; }
+    #carteirinha__verso .carteirinha__verso--dados#contrato {
+      width: 40.9%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#abrangencia {
+      width: 30.8%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#registro_ans {
+      width: 25%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#cobertura {
+      width: 72%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#validade {
+      width: 25%;
+      margin-bottom: 5%; }
+    #carteirinha__verso .carteirinha__verso--dados#observacoes {
+      position: absolute;
+      bottom: 5%;
+      line-height: 0.5em;
+      height: auto;
+      font-size: 0.7em; }
+      #carteirinha__verso .carteirinha__verso--dados#observacoes h1 {
+        font-size: 0.68em !important; }
+    #carteirinha__verso .carteirinha__verso--dados#disqueans {
+      position: absolute;
+      bottom: 13%;
+      left: 66%;
+      font-size: 0.8em;
+      text-align: center; }
+      #carteirinha__verso .carteirinha__verso--dados#disqueans .disqueans--fone {
+        font-weight: 900; }
+      #carteirinha__verso .carteirinha__verso--dados#disqueans .disqueans--site {
+        font-weight: 100; }
+  #carteirinha__verso .carteirinha__verso--label {
+    position: absolute;
+    margin-top: -22px;
+    font-size: 1em;
+    font-weight: 700; }
+
+/*# sourceMappingURL=carteirinha.css.map */

@@ -6,13 +6,13 @@ function abrirWebview(titulo, url, usesLogin, back, titular, orientation) {
     localStorage.currentWebviewOrientation = orientation;
     localStorage.currentWebviewBack = back;
 
-
     if (usesLogin)
         authService.validarToken("webview.html",titular);
     else
     {
         $.mobile.loading("show");
         var urlIframe = configURLLogin.iframesBaseUrl + localStorage.currentWebviewUrl;
+        console.log(urlIframe); 
         $.get(urlIframe).success(function(){
             window.location.href = "webview.html";
         }).error(function(){
