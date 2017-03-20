@@ -55,3 +55,4 @@ build/app/
 www/css/.sass-cache/
 
 capesespmobi.keystore
+/platforms/android
